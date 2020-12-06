@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="186.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="similarity.Similarity">
+   <children>
+      <Button id="pb_referenceSample" fx:id="pb_referenceSample" layoutX="32.0" layoutY="31.0" mnemonicParsing="false" onAction="#sl_selectReferenceSample" text="referenceSample" />
+      <Button id="pb_targetSample" fx:id="pb_targetSample" layoutX="32.0" layoutY="66.0" mnemonicParsing="false" onAction="#sl_selectTargetSample" prefHeight="25.0" prefWidth="113.0" text="inputSample" />
+      <TextField id="te_referenceSample" fx:id="te_referenceSample" layoutX="152.0" layoutY="31.0" />
+      <TextField id="te_targetSample" fx:id="te_targetSample" layoutX="152.0" layoutY="66.0" />
+      <Button id="pb_compute" fx:id="pb_compute" layoutX="32.0" layoutY="120.0" mnemonicParsing="false" onAction="#sl_compute" text="Compute" />
+   </children>
+</AnchorPane>

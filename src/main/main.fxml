@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="378.0" prefWidth="515.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+    <children>
+      <MenuBar layoutX="-1.0" layoutY="3.0" prefHeight="22.0" prefWidth="515.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Match&amp;Count">
+            <items>
+              <MenuItem mnemonicParsing="false">
+                     <graphic>
+                          <Button id="pb_data" fx:id="pb_data" mnemonicParsing="false" onAction="#sl_getDataFile" text="File" />
+                     </graphic>
+                  </MenuItem>
+              <MenuItem mnemonicParsing="false">
+                     <graphic>
+                          <Button id="pb_populationSelect" fx:id="pb_populationSelect" mnemonicParsing="false" onAction="#sl_populationSelect" text="selectPopulation" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                          <Button id="pb_groupSelect" fx:id="pb_groupSelect" mnemonicParsing="false" onAction="#sl_groupSelect" text="selectGroup" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="pb_match" fx:id="pb_match" mnemonicParsing="false" onAction="#sl_match" text="match" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="pb_mismatch" fx:id="pb_mismatch" mnemonicParsing="false" onAction="#sl_mismatch" text="mismatch" />
+                     </graphic>
+                  </MenuItem>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Predict">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="pb_openPredictWindow" fx:id="pb_openPredictWindow" mnemonicParsing="false" onAction="#sl_openPredictWindow" text="PredictWindow" />
+                     </graphic>
+                  </MenuItem>
+               </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Similarity">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="pb_withDatabase" fx:id="pb_withDatabase" mnemonicParsing="false" onAction="#sl_computeWithDatabase" text="withDatabase" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="pb_withinSamples" fx:id="pb_withinSamples" mnemonicParsing="false" onAction="#sl_computeWithinSamples" text="withinSamples" />
+                     </graphic>
+                  </MenuItem>
+               </items></Menu>
+        </menus>
+      </MenuBar>
+<!--        <Text layoutX="221.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Special Allele" />-->
+<!--        <TextField id="te_specialAllale" fx:id="te_specialAllale" layoutX="310.0" layoutY="35.0" onAction="#sl_getSpecialAllele" prefHeight="26.0" prefWidth="142.0" />-->
+        <TextField id="te_data" fx:id="te_data" layoutX="14.0" layoutY="35.0" prefHeight="25.0" prefWidth="111.0" style="-fx-border-color: gray;" />
+      <TableView id="tv_dataTable" fx:id="tv_dataTable" layoutX="3.0" layoutY="82.0" prefHeight="295.0" prefWidth="509.0">
+        <columns>
+          <TableColumn id="tb_idx" fx:id="tb_idx" minWidth="8.000030040740967" prefWidth="21.333343982696533" text="NO." />
+        </columns>
+      </TableView>
+      <Label id="ll_not_ava" fx:id="ll_not_ava" layoutX="221.0" layoutY="253.0" text="Not avaliable">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
