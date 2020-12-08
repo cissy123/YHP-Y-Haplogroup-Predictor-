@@ -3,6 +3,7 @@ Implement for YHP: a software for predicting Y haplogroups based on Y-STRs
 
 # Software
 The packaged software is avaliable at https://drive.google.com/file/d/1pKS4zgzuFIGQYy9uwMIg7OkuXnRMDT16/view?usp=sharing.
+
 step1. Unzip.
 
 step2. Double click projects_java.jar.
