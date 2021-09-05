@@ -1,4 +1,5 @@
 package main;
+
 import matchCount.match.*;
 import matchCount.count.*;
 import util.*;
@@ -15,6 +16,7 @@ import javafx.collections.ObservableList;
 
 import java.io.*;
 import java.util.*;
+
 import javafx.stage.Stage;
 
 import javax.xml.soap.Text;
@@ -47,10 +49,11 @@ public class Controller {
     private List<Compare> compareResults = new ArrayList<>();
     private List<Integer> fourCompareNum = new ArrayList<>();
     private List<List<GroupedMatchResult>> groupedResultIndex = new ArrayList<>();
+    private List<Boolean> showCompareTable = new ArrayList<>();
 
     // onAction implement
     public void sl_getDataFile() throws IOException {
-        this.file =Util.openFileWindow();
+        this.file = Util.openFileWindow();
         if (this.file != null) {
             this.te_data.setText(this.file.getCanonicalFile().getName());
 //            Util.showDialog("INFORMATION",this.file.getAbsoluteFile().toString());
@@ -89,8 +92,8 @@ public class Controller {
         match(false);
     }
 
-    public void typeStatistics(){
-        Statistics statis=new Statistics(this.sampleList);
+    public void typeStatistics() {
+        Statistics statis = new Statistics(this.sampleList);
         try {
             writeStatisticsExcel(statis.getGroupTypeMap());
         } catch (Exception e) {
@@ -103,11 +106,11 @@ public class Controller {
         //for test
         ReadData read = new ReadData(file);
         this.populationList = read.getPopulationList();
-        this.groupList=read.getGroupList();
-        this.popuGroupMap=read.getPopuGroupMap();
-        this.sampleList =read.getSampleList();
-        this.alleleList=read.getAlleleList();
-        if (this.sampleList.size() > 0){
+        this.groupList = read.getGroupList();
+        this.popuGroupMap = read.getPopuGroupMap();
+        this.sampleList = read.getSampleList();
+        this.alleleList = read.getAlleleList();
+        if (this.sampleList.size() > 0) {
             //show in table
             showDataTable(this.sampleList);
             this.ll_not_ava.setVisible(false);
@@ -119,26 +122,26 @@ public class Controller {
         //for test
         List<String> groupNames;
         List<String> popuNames;
-        if(Middle.SelectedGroupIndexs.size()==0)
-        {
-            groupNames=new ArrayList<>(this.groupList);
-            popuNames=new ArrayList<>(this.populationList);
-        }else{
-            groupNames =idx2items(Middle.SelectedGroupIndexs,this.groupList);
-            popuNames =idx2items(Middle.SelectedPopuIndexs,this.populationList);
-    }
-        MatchSamples match = new MatchSamples(this.popuGroupMap,popuNames, groupNames,this.sampleList);
+        if (Middle.SelectedGroupIndexs.size() == 0) {
+            groupNames = new ArrayList<>(this.groupList);
+            popuNames = new ArrayList<>(this.populationList);
+        } else {
+            groupNames = idx2items(Middle.SelectedGroupIndexs, this.groupList);
+            popuNames = idx2items(Middle.SelectedPopuIndexs, this.populationList);
+        }
+        MatchSamples match = new MatchSamples(this.popuGroupMap, popuNames, groupNames, this.sampleList);
 
-        this.compareResults=match.getCompareResults();
-        this.fourCompareNum=match.getFourCompareNum();
-        this.groupedResultIndex=match.getGroupedResultIndex();
+        this.compareResults = match.getCompareResults();
+        this.fourCompareNum = match.getFourCompareNum();
+        this.groupedResultIndex = match.getGroupedResultIndex();
+        this.showCompareTable = match.getShowCompareTable();
         showCompareTable(matchMode);
     }
 
     private void writeStatisticsExcel(Map<String, Map<String, Map<String, List<Integer>>>> groupTypeMap) throws IOException {
         WriteExcel write = new WriteExcel();
         String fileName = this.file.getCanonicalFile().getName().split("\\.")[0];
-        write.writeStaticExcel(fileName,groupTypeMap,this.sampleList,this.groupList,"haploTypeStatistics.xls");
+        write.writeStaticExcel(fileName, groupTypeMap, this.sampleList, this.groupList, "haploTypeStatistics.xls");
     }
 
     private List<Item> setItems(Set<String> name) {
@@ -149,7 +152,7 @@ public class Controller {
         return tmpList;
     }
 
-    private List<String> idx2items(List<Integer> indexs,Set<String> list){
+    private List<String> idx2items(List<Integer> indexs, Set<String> list) {
         List<String> items = new ArrayList<>();
         for (int i = 0; i < indexs.size(); i++) {
             items.add(new ArrayList<>(list).get(indexs.get(i)));
@@ -180,35 +183,45 @@ public class Controller {
 
     private void showCompareTable(boolean matchMode) throws IOException {
         String fileName = this.file.getCanonicalFile().getName().split("\\.")[0];
-        TableWidget openTableSameSame = new TableWidget(fileName, "TableSameSame", this.compareResults.subList(0, this.fourCompareNum.get(0)), this.groupedResultIndex.get(0),this.alleleList.size(),matchMode);
         try {
-            openTableSameSame.start(new Stage());
+            if (this.showCompareTable.get(0)) {
+                TableWidget openTableSameSame = new TableWidget(fileName, "TableSameSame", this.compareResults.subList(0, this.fourCompareNum.get(0)), this.groupedResultIndex.get(0), this.alleleList.size(), matchMode);
+                openTableSameSame.start(new Stage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        TableWidget openTableSameDiff = new TableWidget(fileName, "TableSameDiff", this.compareResults.subList(this.fourCompareNum.get(0), this.fourCompareNum.get(1)), this.groupedResultIndex.get(1), this.alleleList.size(),matchMode);
         try {
-            openTableSameDiff.start(new Stage());
+            if (this.showCompareTable.get(1)) {
+                TableWidget openTableSameDiff = new TableWidget(fileName, "TableSameDiff", this.compareResults.subList(this.fourCompareNum.get(0), this.fourCompareNum.get(1)), this.groupedResultIndex.get(1), this.alleleList.size(), matchMode);
+                openTableSameDiff.start(new Stage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        TableWidget openTableDiffSame = new TableWidget(fileName, "TableDiffSame", this.compareResults.subList(this.fourCompareNum.get(1), this.fourCompareNum.get(2)), this.groupedResultIndex.get(2), this.alleleList.size(),matchMode);
+
         try {
-            openTableDiffSame.start(new Stage());
+            if (this.showCompareTable.get(2)) {
+                TableWidget openTableDiffSame = new TableWidget(fileName, "TableDiffSame", this.compareResults.subList(this.fourCompareNum.get(1), this.fourCompareNum.get(2)), this.groupedResultIndex.get(2), this.alleleList.size(), matchMode);
+                openTableDiffSame.start(new Stage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
 
-        TableWidget openTableDiffDiff = new TableWidget(fileName, "TableDiffDiff", this.compareResults.subList(this.fourCompareNum.get(2), this.fourCompareNum.get(3)), this.groupedResultIndex.get(3), this.alleleList.size(),matchMode);
+        }
         try {
-            openTableDiffDiff.start(new Stage());
+            if (this.showCompareTable.get(3)) {
+                TableWidget openTableDiffDiff = new TableWidget(fileName, "TableDiffDiff", this.compareResults.subList(this.fourCompareNum.get(2), this.fourCompareNum.get(3)), this.groupedResultIndex.get(3), this.alleleList.size(), matchMode);
+                openTableDiffDiff.start(new Stage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-////////////////above all about match&count function/////////////////
+
+    ////////////////above all about match&count function/////////////////
     public void sl_openPredictWindow() throws Exception {
         try {
             Predict predictWindow = new Predict();
@@ -218,7 +231,7 @@ public class Controller {
         }
     }
 
-    public void sl_computeWithDatabase() throws Exception{
+    public void sl_computeWithDatabase() throws Exception {
         try {
             Similarity similarityWindow = new Similarity();
             similarityWindow.start(new Stage());
@@ -227,7 +240,7 @@ public class Controller {
         }
     }
 
-    public void sl_computeWithinSamples(){
+    public void sl_computeWithinSamples() {
         try {
             Similarity similarityWindow = new Similarity();
             similarityWindow.start(new Stage());

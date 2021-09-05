@@ -54,7 +54,7 @@ public class ReadData {
 //                read each row
                 for (int i = 1; i < row_total; i++) {
                     Cell[] cells = sheet.getRow(i);
-                    ArrayList<Integer> tmp_allale = new ArrayList<Integer>();
+                    ArrayList<Float> tmp_allale = new ArrayList<Float>();
 //                    allale read
                     for (int j = 3; j < col_total; j++) {
                         String cell = cells[j].getContents();
@@ -62,7 +62,7 @@ public class ReadData {
                             Util.showDialog("WARNING","ERROR! Please check "+file.getName()+" Row "+(i+1)+" Column"+(j)+". If you don't have data in this row, we suggest you to delete this row and try again! ");
                             return;
                         }
-                        tmp_allale.add(Integer.parseInt(cells[j].getContents().trim()));
+                        tmp_allale.add(Float.parseFloat(cells[j].getContents().trim()));
                     }
 //                    create a new Sample
                     Sample new_ = new Sample(i - 1, cells[0].getContents().trim(), cells[1].getContents().trim(), cells[2].getContents().trim(), tmp_allale);

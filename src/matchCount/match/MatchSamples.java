@@ -12,7 +12,10 @@ public class MatchSamples {
     private List<Sample> sampleList;
     @Getter private List<Compare> compareResults = new ArrayList<>();
     @Getter private List<Integer> fourCompareNum = new ArrayList<>();
-    @Getter private List<List< GroupedMatchResult>> groupedResultIndex=new ArrayList<>();
+    @Getter
+    private List<List<GroupedMatchResult>> groupedResultIndex = new ArrayList<>();
+    @Getter
+    private List<Boolean> showCompareTable = new ArrayList<>();
     private int compareIndex[][];//N*N, diagonal cells are 0
     private int compareCount = 0;
 
@@ -30,7 +33,8 @@ public class MatchSamples {
     }
     private void matchSameSame() {
         if (this.groupNames.size() < 1 || this.popuNames.size()<1) {
-            Util.showDialog("WARNING","please select populations and groups");
+            Util.showDialog("WARNING", "please select populations and groups");
+            this.showCompareTable.add(false);
             return;
         }
         List< GroupedMatchResult> curGroupedResultIndex = new ArrayList<>();
@@ -59,13 +63,15 @@ public class MatchSamples {
                 }
             }
         }
+        this.showCompareTable.add(true);
         this.fourCompareNum.add(this.compareCount);
         groupedResultIndex.add(curGroupedResultIndex);
     }
 
     private void matchSameDiff() {
         if (this.groupNames.size() < 2 || this.popuNames.size()<1) {
-            Util.showDialog("WARNING","please select more than 1 population");
+            Util.showDialog("WARNING", "please select more than 1 population");
+            this.showCompareTable.add(false);
             return;
         }
         List< GroupedMatchResult> curGroupedResultIndex = new ArrayList<>();
@@ -121,13 +127,15 @@ public class MatchSamples {
                 loop += 1;
             }
         }
+        this.showCompareTable.add(true);
         this.fourCompareNum.add(this.compareCount);
         groupedResultIndex.add(curGroupedResultIndex);
     }
 
     private void matchDiffSame() {
         if (this.popuNames.size() < 2 || this.groupNames.size()<1) {
-            Util.showDialog("WARNING","please select more than 1 group");
+            Util.showDialog("WARNING", "please select more than 1 group");
+            this.showCompareTable.add(false);
             return;
         }
 
@@ -169,6 +177,7 @@ public class MatchSamples {
                 }
             }
         }
+        this.showCompareTable.add(true);
         this.fourCompareNum.add(this.compareCount);
         groupedResultIndex.add(curGroupedResultIndex);
     }
@@ -179,7 +188,8 @@ public class MatchSamples {
 
         //compare all samples
         if (this.popuNames.size() < 2 | this.groupNames.size() < 2) {
-            Util.showDialog("WARNING","please select more than 1 group and population");
+            Util.showDialog("WARNING", "please select more than 1 group and population");
+            this.showCompareTable.add(false);
             return;
         }
         List<Compare> curCompareResults = new ArrayList<>();
@@ -221,6 +231,7 @@ public class MatchSamples {
             }
             groupedResultIndex.add(curGroupedResultIndex);
         }
+        this.showCompareTable.add(true);
         this.fourCompareNum.add(this.compareCount);
     }
 

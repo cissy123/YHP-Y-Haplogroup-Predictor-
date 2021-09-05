@@ -4,21 +4,32 @@ import lombok.Getter;
 import util.Sample;
 
 public class Compare {
-    @Getter private Sample sample_1;
-    @Getter private Sample sample_2;
-    @Getter private int misMatchNum = 0;
-    @Getter private int misMatchSteps = 0;
-    @Getter private double misMatchRatio = 0;
+    @Getter
+    private Sample sample_1;
+    @Getter
+    private Sample sample_2;
+    @Getter
+    private int misMatchNum = 0;
+    @Getter
+    private float misMatchSteps = 0;
+    @Getter
+    private float misMatchRatio = 0;
 
     //to show in table
-    @Getter private String sampleNamePair="";
-    @Getter private String samplePopuPair="";
-    @Getter private String sampleGroupPair="";
-    @Getter private String samplePopuPairInOrder="";
-    @Getter private String sampleGroupPairInOrder="";
-    @Getter private String misMatchDetail ="";
+    @Getter
+    private String sampleNamePair = "";
+    @Getter
+    private String samplePopuPair = "";
+    @Getter
+    private String sampleGroupPair = "";
+    @Getter
+    private String samplePopuPairInOrder = "";
+    @Getter
+    private String sampleGroupPairInOrder = "";
+    @Getter
+    private String misMatchDetail = "";
 
-    public Compare(Sample sample_1,Sample sample_2){
+    public Compare(Sample sample_1, Sample sample_2) {
         super();
         this.sample_1 = sample_1;
         this.sample_2 = sample_2;
@@ -31,22 +42,22 @@ public class Compare {
     }
     public void computeResult() {
         //misMatch mode
-        for (int i=0;i<this.sample_1.getAlleleData().size();i++){
-            int allele_1= this.sample_1.getAlleleData().get(i);
-            int allele_2= this.sample_2.getAlleleData().get(i);
-            int diff = 0;
-            if (allele_1!=allele_2){
-                this.misMatchNum+=1;
-                diff=allele_1-allele_2;
-                diff = ((diff<0)?-diff:diff);
-                this.misMatchSteps+=diff;
-            }else {
-                this.misMatchSteps+=diff;
+        for (int i=0;i<this.sample_1.getAlleleData().size();i++) {
+            float allele_1 = this.sample_1.getAlleleData().get(i);
+            float allele_2 = this.sample_2.getAlleleData().get(i);
+            float diff = 0;
+            if (allele_1 != allele_2) {
+                this.misMatchNum += 1;
+                diff = allele_1 - allele_2;
+                diff = ((diff < 0) ? -diff : diff);
+                this.misMatchSteps += diff;
+            } else {
+                this.misMatchSteps += diff;
             }
-            this.misMatchDetail+=(","+String.format("%d", diff)+"("+String.format("%d", allele_1)+ "," +String.format("%d", allele_2)+ ")");
+            this.misMatchDetail += ("," + String.format("%f", diff) + "(" + String.format("%f", allele_1) + "," + String.format("%f", allele_2) + ")");
         }
         this.misMatchDetail = this.misMatchDetail.substring(1);
-        this.misMatchRatio = (double)this.misMatchSteps/this.misMatchNum;
+        this.misMatchRatio = (float) this.misMatchSteps / this.misMatchNum;
     }
 
     public Integer getMatchNum(){return this.sample_1.getAlleleData().size()-misMatchNum;}
