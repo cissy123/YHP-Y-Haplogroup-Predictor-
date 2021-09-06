@@ -2,7 +2,7 @@
 Implement for YHP: a software for predicting Y haplogroups based on Y-STRs
 
 # Software
-The packaged software is avaliable at https://drive.google.com/file/d/1pKS4zgzuFIGQYy9uwMIg7OkuXnRMDT16/view?usp=sharing (YHP For Chinese users: https://pan.baidu.com/s/1Mti1ElkbET-dSpi7yFBdBQ password: 1d2t）.
+The packaged software is avaliable at https://drive.google.com/file/d/1FIv9aumVRgWKIWJ_N3lvG0zOSI-JB2Dk/view?usp=sharing (YHP For Chinese users: https://pan.baidu.com/s/1Mti1ElkbET-dSpi7yFBdBQ password: 1d2t）.
 
 step1. Unzip.
 
