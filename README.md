@@ -14,6 +14,6 @@ The code is avaliable at https://github.com/cissy123/YHP-Y-Haplogroup-Predictor-
 
 CONFIGURE：JAVA1.8+PYTHON3.6
 
-step1.Download jars from https://drive.google.com/file/d/1EP1DjL7ck6Ky_8Zefdt501fUVM-L7NcJ/view?usp=sharing (java package For Chinese users: https://pan.baidu.com/s/1fUE0BHHkQQ_uFYhTCyoPYw  password: urrn), then configure. 
+step1.Download jars from https://drive.google.com/file/d/1EP1DjL7ck6Ky_8Zefdt501fUVM-L7NcJ/view?usp=sharing (java package For Chinese users: https://pan.baidu.com/s/1Mti1ElkbET-dSpi7yFBdBQ password: 1d2t), then configure. 
 
 step2.Run /src/main/Main.java
