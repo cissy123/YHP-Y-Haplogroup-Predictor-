@@ -6,7 +6,7 @@ The packaged software is avaliable at https://drive.google.com/file/d/1pKS4zgzuF
 
 step1. Unzip.
 
-step2. Double click projects_java.jar.
+step2. Double click YHP_Y_Haplogroup_Predictor_.jar.
 
 
 # Code 
