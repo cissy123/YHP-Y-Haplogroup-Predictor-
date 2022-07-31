@@ -1,7 +1,7 @@
 # YHP-Y-Haplogroup-Predictor-
 Implement for YHP: a software for predicting Y haplogroups based on Y-STRs
 
-# Software
+# Run by user-friendly software
 The packaged software is avaliable at https://drive.google.com/file/d/1FIv9aumVRgWKIWJ_N3lvG0zOSI-JB2Dk/view?usp=sharing (YHP For Chinese users: https://pan.baidu.com/s/1Mti1ElkbET-dSpi7yFBdBQ password: 1d2t）.
 
 step1. Unzip.
@@ -9,7 +9,7 @@ step1. Unzip.
 step2. Double click YHP_Y_Haplogroup_Predictor_.jar.
 
 
-# Code 
+# Run in command line 
 The code is avaliable at https://github.com/cissy123/YHP-Y-Haplogroup-Predictor-.
 
 CONFIGURE：JAVA1.8+PYTHON3.6
