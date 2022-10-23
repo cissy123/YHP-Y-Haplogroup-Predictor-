@@ -46,7 +46,7 @@ def train(train_path):
 
     for file_num in range(len_train_file):
         train_file = os.path.join(train_path,dirs[file_num])
-        save_model_path ='output/train_model/'+ train_path.split('\\')[-1]+'/'
+        save_model_path ='output/train_model/'+ train_path.split('\\')[-1]+'/'+dirs[file_num].split('.')[0]+'/'
         if not os.path.exists(save_model_path):
             os.makedirs(save_model_path)
         alleleGroupName, alleleList, alleleData,data,groupName,shuffleIndex = readData.readExcelData(train_file, SHUFFLE=True)
@@ -56,41 +56,37 @@ def train(train_path):
 
         #knn
         knn = KNeighborsClassifier(1).fit(x_train, y_train)
-        joblib.dump(knn, save_model_path+dirs[file_num].split('.')[0]+'_knn.model')
+        joblib.dump(knn, save_model_path+'knn.model')
 
         #naiveBayes
         gnb = GaussianNB().fit(x_train, y_train)
-        joblib.dump(gnb, save_model_path+dirs[file_num].split('.')[0]+'_naiveBayes.model')
+        joblib.dump(gnb, save_model_path+'naiveBayes.model')
 
         #logisticRegression
         lr = LogisticRegression(penalty="l2", C=1, multi_class="ovr", solver="newton-cg",max_iter=1000).fit(x_train, y_train)
-        joblib.dump(lr, save_model_path+dirs[file_num].split('.')[0]+'_logisticRegression.model')
+        joblib.dump(lr, save_model_path+'logisticRegression.model')
 
         #SVM
         svm_svm = svm.SVC(probability = True).fit(x_train, y_train)
-        joblib.dump(svm_svm, save_model_path+dirs[file_num].split('.')[0]+'_svm.model')
+        joblib.dump(svm_svm, save_model_path+'svm.model')
 
         #decesionTree
         dt = DecisionTreeClassifier(criterion='entropy').fit(x_train, y_train)
-        joblib.dump(dt, save_model_path+dirs[file_num].split('.')[0]+'_decesionTree.model')
+        joblib.dump(dt, save_model_path+'decesionTree.model')
 
         #randomForest
         rf = RandomForestClassifier(n_estimators=170).fit(x_train, y_train)
-        joblib.dump(rf, save_model_path+dirs[file_num].split('.')[0]+'_randomForest.model')
+        joblib.dump(rf, save_model_path+'randomForest.model')
 
 def test(mode,train_path,test_file):
     ml_method = ['knn','naiveBayes','logisticRegression','svm','decesionTree','randomForest']
     len_train_file = len(os.listdir(train_path)) if mode=="others" else 1
     dirs = os.listdir(train_path)
-    if(mode=="DATABASE"):
-        save_model_path=train_path+'/'
-        save_result = 'output/PredictResult_DATABASE_'+test_file.split('\\')[-1].split('.')[0]+'.xlsx'
-
-    else:
-        save_model_path ='output/train_model/'+ train_path.split('\\')[-1]+'/'
-        if not os.path.exists(save_model_path):
-            os.makedirs(save_model_path)
-        save_result = 'output/PredictResult_'+ train_path.split('\\')[-1]+'_'+test_file.split('\\')[-1].split('.')[0]+'.xlsx'
+    save_model_path = train_path + '/'
+    save_path = 'output'
+    save_result = 'output/PredictResult_DATABASE_'+test_file.split('\\')[-1].split('.')[0]+'.xlsx'
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
     try:
         file = openpyxl.Workbook()
         sheet1 = file.create_sheet('predict')
@@ -109,10 +105,7 @@ def test(mode,train_path,test_file):
         x_test = data_test
 
         for k in range(6):
-            if(mode=="others"):
-                model = os.path.join(save_model_path,dirs[file_num].split('.')[0]+'_'+ml_method[k] + '.model')
-            else:
-                model=os.path.join(save_model_path,ml_method[k]+'.model')
+            model=os.path.join(save_model_path,ml_method[k]+'.model')
 
             try:
                 fout = open(model)
@@ -191,9 +184,10 @@ def compute(train_path,compared_file,input_file):
         return save_result+" has been written."
 
 if __name__ == "__main__":
-    # train(".\\20181021")
+    # train(".\\20220904发表使用")
+    # train(".\\20220904实验室内使用")
     # test("DATABASE","E:\\Projects\\mengyuan_code_release\\predict_new_data\\trained_DATABASE_model","input1.xls")
-    # test("others",".\\20181021","input1.xls")
+    # test("others","E:\\Projects\\mengyuan_code_release\\predict_new_data\\output\\train_model\\20220904for_lab","input1.xls")
     # compute("E:\\projects_java\\trained_DATABASE_model",
     #         "E:\\projects_java\\src\\input1.xls","E:\\projects_java\\src\\input1.xls")
 
